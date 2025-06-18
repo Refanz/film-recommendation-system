@@ -6,59 +6,77 @@
 
 Jika kita adalah pengguna setia aplikasi streaming film seperti Netflix, di menu utama aplikasi, kita  akan disuguhkan dengan rekomendasi film yang ceritanya sesuai dengan yang biasa kita tonton. Jika kita biasanya suka menonton film komedi, maka di tampilan atas akan terlihat rekomendasi film yang memiliki genre komedi. Hal ini terjadi karena aplikasi tersebut menerapkan sistem rekomendasi yang  menggunakan algoritma atau teknik tertentu untuk memberikan saran film yang relevan dengan pengguna. 
 
-Sistem rekomendasi akan membantu untuk menemukan film yang sesuai dengan preferensi pengguna, meningkatkan pengalaman menonton dan meningkatkan kepuasan pengguna. Manfaat yang diberikan dengan penerapan sistem rekomendasi ini dapat membuat perusahaan seperti Netflix untuk meningkatkan jumlah penggunanya. Selain itu, dengan adanya sistem rekomendasi ini kita juga dapat lebih cepat memilih film yang cocok dengan kita tanpa perlu melakukan pencarian atau scrolling film, yang mana ini memakan waktu istirahat kita. Jika tidak ada sistem rekomendasi ini, kemungkinan kita tidak akan jadi istirahat dan justru sibuk memilih film yang tepat.
+Sistem rekomendasi akan membantu untuk menemukan film yang sesuai dengan preferensi pengguna, meningkatkan pengalaman menonton dan meningkatkan kepuasan pengguna. Manfaat yang diberikan dengan penerapan sistem rekomendasi ini dapat membuat perusahaan seperti Netflix untuk meningkatkan jumlah penggunanya. Selain itu, dengan adanya sistem rekomendasi ini kita juga dapat lebih cepat memilih film yang cocok dengan kita tanpa perlu melakukan pencarian atau scrolling film, yang mana ini memakan waktu istirahat kita. Jika tidak ada sistem rekomendasi ini, kemungkinan kita tidak akan jadi istirahat dan justru pusing karena sibuk memilih film yang tepat.
 
-Untuk menerapkan sistem rekomendasi ini terdapat beberapa metode yang digunakan untuk membuat sistem rekomendasi yaitu Content-based filtering, Collaborative-filtering, Hybrid-filtering dan metode lainnya. 
+Terdapat berbagai metode untuk menerapkan sistem rekomendasi, di antaranya adalah Content-based Filtering, Collaborative Filtering, dan Hybrid Filtering. Dari berbagai metode tersebut, proyek ini akan berfokus pada penerapan dua pendekatan, yaitu Content-based dan Collaborative Filtering. Pendekatan pertama, Content-based Filtering, berfokus pada analisis atribut atau konten dari item itu sendiri. Sebagaimana ditunjukkan oleh Siagian et al. [1], metode ini terbukti efektif memberikan rekomendasi berdasarkan deskripsi atau sinopsis film yang pernah disukai pengguna. Di sisi lain, pendekatan Collaborative Filtering bekerja dengan cara yang berbeda, yaitu memberikan rekomendasi berdasarkan interaksi dan rating pengguna tanpa perlu menganalisis konten item. Menurut Wiputra dan Shandi [2], metode ini mampu mengelompokkan item dan pengguna berdasarkan pola rating yang serupa. Kombinasi kedua metode ini memungkinkan sistem untuk memberikan rekomendasi yang tidak hanya personal, tetapi juga beragam."
 
 **Daftar Referensi**
 
+[1] R. I. P. Siagian, N. Khoiriah, S. A. Priscilia, M. R. A. Tanjung, and A. Perdana, "Penerapan Machine Learning untuk Rekomendasi Film Berdasarkan Preferensi Pengguna," JATI (Jurnal Mahasiswa Teknik Informatika), vol. 9, no. 4, pp. 5658-5662, 2025.
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
-- Jelaskan mengapa dan bagaimana masalah tersebut harus diselesaikan
-- Menyertakan hasil riset terkait atau referensi. Referensi yang diberikan harus berasal dari sumber yang kredibel dan author yang jelas.
-- Format Referensi dapat mengacu pada penulisan sitasi [IEEE](https://journals.ieeeauthorcenter.ieee.org/wp-content/uploads/sites/7/IEEE_Reference_Guide.pdf), [APA](https://www.mendeley.com/guides/apa-citation-guide/) atau secara umum seperti [di sini](https://penerbitdeepublish.com/menulis-buku-membuat-sitasi-dengan-mudah/)
-- Sumber yang bisa digunakan [Scholar](https://scholar.google.com/)
+[2] M. M. Wiputra and Y. J. Shandi, "Perancangan Sistem Rekomendasi Menggunakan Metode Collaborative Filtering dengan Studi Kasus Perancangan Website Rekomendasi Film," Media Informatika, vol. 20, no. 1, pp. 1-8, 2021.
+
 
 ## Business Understanding
 
-Pada bagian ini, Anda perlu menjelaskan proses klarifikasi masalah.
+Sistem rekomendasi merupakan teknologi cerdas yang telah menjadi strategi bisnis bagi platform digital, dengan cara menganalisis data perilaku pengguna dan atribut item untuk menyajikan konten secara personal. Platform-platform terkemuka memanfaatkan teknologi ini untuk mempertahankan pengguna. Dengan secara proaktif menyajikan film yang relevan, layanan-layanan ini berhasil menekan tingkat pelanggan yang berhenti berlangganan. Hal ini membuktikan bahwa implementasi sistem rekomendasi bukanlah sekadar fitur teknis, melainkan sebuah solusi strategis untuk pertumbuhan dan keberlanjutan bisnis di era digital.
 
-Bagian laporan ini mencakup:
 
 ### Problem Statements
 
-Menjelaskan pernyataan masalah:
-- Pernyataan Masalah 1
-- Pernyataan Masalah 2
-- Pernyataan Masalah n
+- Bagaimana cara menggunakan atribut konten film, khususnya genre, untuk merekomendasikan film lain yang memiliki kemiripan dengan film-film yang telah disukai pengguna?
+- Bagaimana cara menggunakan data rating dari seluruh pengguna untuk menemukan pengguna lain dengan selera serupa, untuk merekomendasikan film yang kemungkinan besar akan disukai?
 
 ### Goals
 
-Menjelaskan tujuan proyek yang menjawab pernyataan masalah:
-- Jawaban pernyataan masalah 1
-- Jawaban pernyataan masalah 2
-- Jawaban pernyataan masalah n
+- Menggunakan pendekatan Content-based Filtering untuk menghasilkan rekomendasi film yang memiliki genre yang serupa
+- Menggunakan pendekatan Collaborative-Filtering untuk menghasilkan rekomendasi film yang belum pernah ditonton oleh pengguna
 
-Semua poin di atas harus diuraikan dengan jelas. Anda bebas menuliskan berapa pernyataan masalah dan juga goals yang diinginkan.
+### Solution Statements
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
-- Menambahkan bagian “Solution Approach” yang menguraikan cara untuk meraih goals. Bagian ini dibuat dengan ketentuan sebagai berikut: 
-
-    ### Solution statements
-    - Mengajukan 2 atau lebih solution approach (algoritma atau pendekatan sistem rekomendasi).
+- Membuat sistem rekomendasi film dengan dua pendekatan yaitu Content-based Filtering dan Collaborative Filtering
+- Menerapkan regularisasi L2 di lapisan embedding  pada pendekatan Collaborative Filtering  untuk mencegah overfitting
 
 ## Data Understanding
-Paragraf awal bagian ini menjelaskan informasi mengenai jumlah data, kondisi data, dan informasi mengenai data yang digunakan. Sertakan juga sumber atau tautan untuk mengunduh dataset. Contoh: [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/Restaurant+%26+consumer+data).
 
-Selanjutnya, uraikanlah seluruh variabel atau fitur pada data. Sebagai contoh:  
+Data yang digunakan pada proyek sistem rekomendasi film ini adalah Movie Lens Small Latest Dataset yang diunduh dari [Kaggle](https://www.kaggle.com/datasets/shubhammehta21/movie-lens-small-latest-dataset). Dataset ini terdiri dari empat file yaitu links.csv, movies.csv, tags.csv dan ratings.csv. Dataset ini mengandung 100836 rating dan 3683 tag pada 9742 film yang diberikan oleh pengguna. Data ini dibuat oleh 610 pengguna antara Maret 29, 1996 dan September 24, 2018.
 
-Variabel-variabel pada Restaurant UCI dataset adalah sebagai berikut:
-- accepts : merupakan jenis pembayaran yang diterima pada restoran tertentu.
-- cuisine : merupakan jenis masakan yang disajikan pada restoran.
-- dst
+### Variabel-variabel pada Movie Lens Small Latest Dataset adalah sebagai berikut:
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
-- Melakukan beberapa tahapan yang diperlukan untuk memahami data, contohnya teknik visualisasi data beserta insight atau exploratory data analysis.
+- **movies**: ini adalah data film meliputi judul dan genre
+- **links**: ini adalah data sumber film yaitu tmd dan imdb
+- **tags**: ini adalah data tag pada film yang diberikan oleh pengguna
+- **ratings**: ini adalah rating yang diberikan pada pengguna pada film yang sudah ditonton
+
+### Exploratory Data Analysis
+
+Berikut ini adalah beberapa tahapan EDA yang telah dilakukan pada proyek ini.
+
+#### Melihat Informasi Dataset
+
+**Links Dataset**
+
+<img src="assets/info-links.png" width=100% alt="Info Dataset" >
+
+Berdasarkan informasi di atas, dataset links memiliki 9741 entri. Terdapat tiga variabel pada dataset ini yaitu movieId, imdbId dan tmdbId.
+
+**Movies Dataset**
+
+<img src="assets/info-movies.png" width=100% alt="Info Dataset" >
+
+Berdasarkan informasi di atas, dataset movies memiliki 7742 entri. Terdapat tiga variabel pada dataset ini yaitu movieId, title atau judul film dan genres.
+
+**Ratings Dataset**
+
+<img src="assets/info-ratings.png" width=100% alt="Info Dataset" >
+
+Berdasarkan informasi di atas, dataset ratings memiliki 100835 entri. Terdapat empat variabel pada dataset ini yaitu userId, movieId, rating dan timestamp.
+
+**Tags Dataset**
+
+<img src="assets/info-tags.png" width=100% alt="Info Dataset" >
+
+Berdasarkan informasi di atas dataset tags memiliki 3682 entri. Terdapat empat variabel pada dataset ini yaitu userId, movieId, tag dan timestamp.
 
 ## Data Preparation
 Pada bagian ini Anda menerapkan dan menyebutkan teknik data preparation yang dilakukan. Teknik yang digunakan pada notebook dan laporan harus berurutan.
