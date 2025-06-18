@@ -8,7 +8,7 @@ Jika kita adalah pengguna setia aplikasi streaming film seperti Netflix, di menu
 
 Sistem rekomendasi akan membantu untuk menemukan film yang sesuai dengan preferensi pengguna, meningkatkan pengalaman menonton dan meningkatkan kepuasan pengguna. Manfaat yang diberikan dengan penerapan sistem rekomendasi ini dapat membuat perusahaan seperti Netflix untuk meningkatkan jumlah penggunanya. Selain itu, dengan adanya sistem rekomendasi ini kita juga dapat lebih cepat memilih film yang cocok dengan kita tanpa perlu melakukan pencarian atau scrolling film, yang mana ini memakan waktu istirahat kita. Jika tidak ada sistem rekomendasi ini, kemungkinan kita tidak akan jadi istirahat dan justru pusing karena sibuk memilih film yang tepat.
 
-Terdapat berbagai metode untuk menerapkan sistem rekomendasi, di antaranya adalah Content-based Filtering, Collaborative Filtering, dan Hybrid Filtering. Dari berbagai metode tersebut, proyek ini akan berfokus pada penerapan dua pendekatan, yaitu Content-based dan Collaborative Filtering. Pendekatan pertama, Content-based Filtering, berfokus pada analisis atribut atau konten dari item itu sendiri. Sebagaimana ditunjukkan oleh Siagian et al. [1], metode ini terbukti efektif memberikan rekomendasi berdasarkan deskripsi atau sinopsis film yang pernah disukai pengguna. Di sisi lain, pendekatan Collaborative Filtering bekerja dengan cara yang berbeda, yaitu memberikan rekomendasi berdasarkan interaksi dan rating pengguna tanpa perlu menganalisis konten item. Menurut Wiputra dan Shandi [2], metode ini mampu mengelompokkan item dan pengguna berdasarkan pola rating yang serupa. Kombinasi kedua metode ini memungkinkan sistem untuk memberikan rekomendasi yang tidak hanya personal, tetapi juga beragam."
+Terdapat berbagai metode untuk menerapkan sistem rekomendasi, di antaranya adalah Content-based Filtering, Collaborative Filtering, dan Hybrid Filtering. Dari berbagai metode tersebut, proyek ini akan berfokus pada penerapan dua pendekatan, yaitu Content-based dan Collaborative Filtering. Pendekatan pertama, Content-based Filtering, berfokus pada analisis atribut atau konten dari item itu sendiri. Sebagaimana ditunjukkan oleh Siagian et al. [1], metode ini terbukti efektif memberikan rekomendasi berdasarkan deskripsi atau sinopsis film yang pernah disukai pengguna. Di sisi lain, pendekatan Collaborative Filtering bekerja dengan cara yang berbeda, yaitu memberikan rekomendasi berdasarkan interaksi dan rating pengguna tanpa perlu menganalisis konten item. Menurut Wiputra dan Shandi [2], metode ini mampu mengelompokkan item dan pengguna berdasarkan pola rating yang serupa. Kombinasi kedua metode ini memungkinkan sistem untuk memberikan rekomendasi yang tidak hanya personal, tetapi juga beragam.
 
 **Daftar Referensi**
 
@@ -78,12 +78,129 @@ Berdasarkan informasi di atas, dataset ratings memiliki 100835 entri. Terdapat e
 
 Berdasarkan informasi di atas dataset tags memiliki 3682 entri. Terdapat empat variabel pada dataset ini yaitu userId, movieId, tag dan timestamp.
 
-## Data Preparation
-Pada bagian ini Anda menerapkan dan menyebutkan teknik data preparation yang dilakukan. Teknik yang digunakan pada notebook dan laporan harus berurutan.
+#### Mengecek Missing Value
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan proses data preparation yang dilakukan
-- Menjelaskan alasan mengapa diperlukan tahapan data preparation tersebut.
+<div style="display:flex; justify-content: space-between; gap: 10px">
+ <div style="width: 25%; height: auto; display:flex; flex-direction:column;align-items:center">
+  <p style="font-weight: bold">Links</p>
+  <img src="assets/miss-val-links.png" alt="Missing Value">
+ </div>
+ <div style="width: 25%; height: auto; display:flex; flex-direction:column;align-items:center">
+  <p style="font-weight: bold">Tags</p>
+  <img src="assets/miss-val-tags.png" alt="Missing Value">
+ </div>
+ <div style="width: 25%; height: auto; display:flex; flex-direction:column;align-items:center">
+  <p style="font-weight: bold">Movies</p>
+  <img src="assets/miss-val-movies.png" alt="Missing Value">
+ </div>
+ <div style="width: 25%; height: auto; display:flex; flex-direction:column;align-items:center">
+  <p style="font-weight: bold">Ratings</p>
+  <img src="assets/miss-val-ratings.png" alt="Missing Value">
+ </div>
+</div>
+
+Dari keempat dataset di atas, setelah mengecek menggunakan isna() tidak ditemukan adanya missing value/Nan.
+
+#### Melihat Deskriptif Statistik pada Dataset Ratings
+
+<img src="assets/descriptive-statistic.png" width=100% alt="Deskripsi Statistik">
+
+Dari informasi di atas, ditemukan bahwa nilai minimum user memberikan rating adalah 0.5 dan maksimum ratingnya adalah 5. Ini artinya, skala rating berkisar antara 0.5 hingga 5. Kemudian untuk rata-rata user memberikan rating 3.5.
+
+#### Mengecek Nilai Duplikat pada Dataset
+
+<img src="assets/duplicated.png" width=100% alt="Duplikat">
+
+Dari keempat dataset di atas, setelah melakukan pengecekan dengan fungsi duplicated() tidak ditemukan adanya data yang sama/duplikat.
+
+## Data Preprocessing
+
+Ini adalah tahap persiapan data sebelum digunakan untuk proses selanjutnya yaitu Data Preparation. Pada tahap ini dilakukan penggabungan beberapa file dataset menjadi satu kesatuan file yang utuh.
+
+<img src="assets/merging-dataset.png" width=100% alt="Merging Dataset">
+
+Pada gambar di atas adalah contoh beberapa data setelah melakukan merge pada dataset movies dan ratings. Hasil merging ini untuk kolomnya ada movieId, title, genres, rating dan userId.
+
+- Dari tahap ini dihasilkan dataframe dari hasil gabungan dataset movies dan ratings. main_movies_df akan digunakan untuk membuat sistem rekomendasi film.
+- Setelah dilakukan merge movies dan ratings, kemudian melakukan pengecekan missing value dengan isna(). Ditemukan untuk variabel rating dan userId terdapat missing value dengan jumlah masing-masing adalah 18 data. Masalah ini akan ditangani pada tahap Data Preparation.
+- Setelah merging tidak ditemukan data duplikasi
+
+## Data Preparation
+
+Berikut ini adalah proses-proses yang dilakukan pada tahap Data Preparation, suapaya data siap digunakan untuk modeling. 
+
+### Mengatasi Missing Value
+
+Pada tahap Data Preprocessing dihasilkan dataframe yang masih terdapat missing value. Pada tahap ini dilakukan penanganan masalah tersebut dengan cara melakukan drop menggunakan fungsi dropna(). Fungsi dropna() akan menghapus baris data yang mengandung missing value/nan. Proses ini perlu dilakukan untuk menjaga kulaitas dan integritas data, sehingga analisis dan model yang dibangun menjadi lebih andal.
+
+### Konversi Data Series menjadi List
+
+Setelah menangani missing value, dibuat dataframe main_movies_clean_df. Dari dataframe ini diambil tiga variabel pada main_movies_clean_df yaitu movieId, title dan genre. Kemudian dari ketiga variabel ini diubah menjadi list. Setelah itu, membuat dictionary dengan pasangan key:value sesuai dengan variabel yang diambil. Kemudian dibuat dataframe yaitu movie_new dari dictionary yang sudah dibuat.
+
+<img src="assets/series-to-list.png" width=100% alt="series to list">
+
+Pada gambar di atas adalah hasil dataframe baru dari tahap ini dengan nama movie_new. Dataframe ini digunakan untuk modeling menggunakan pendekatan Content-based Filtering.
+
+### Melakukan Formatting pada Variabel Genres
+
+Terdapat nilai pada variabel genres yang dipisahkan dengan tanda "-". Untuk memudahkan proses vektorisasi nantinya, maka perlu mengghapus tanda "-" menjadi tanpa spasi. Berikut ini adalah kodenya.
+
+```python
+movies_formatted_df = movie_new.iloc[:]
+movies_formatted_df['genres'] = movies_formatted_df['genres'].str.replace('-', '', regex=False)
+movies_formatted_df
+```
+
+### Menghapus Data dengan Genre Tidak Jelas
+
+Terdapat film dengan genre yang tidak jelas yaitu "(no genres listed)". Untuk menjaga kualitas data, maka perlu dilakukan penghapusan pada data tersebut. Berikut ini adalah potongan kode untuk proses ini.
+
+```python
+
+fix_movies_df = fix_movies_df.replace('(no genres listed)', np.nan)
+fix_movies_df = fix_movies_df.dropna()
+
+fix_movies_df
+```
+
+### Melakukan Encoding Fitur userId dan movieId ke dalam Indeks Integer
+
+Tahapan ini digunakan untuk mengubah ID asli (userId dan movieId) yang mungkin tidak berurutan menjadi ID baru yang berurutan mulai dari 0, 1, 2, dan seterusnya. Dataframe baru dari proses ini digunakan untuk modeling dengan pendekatan Collaborative Filtering.
+
+### Mempersiapkan Data untuk Modeling Collaborative Filtering
+
+Mempersiapkan data yaitu jumlah user, jumlah film, nilai minimum rating dan nilai maksimu rating. Data ini digunakan untuk modeling dengan pendekatan Collaborative Filtering.
+
+<img src="assets/preparing-data-collab-filter.png" alt="preparing data" width=100%>
+
+Dari gambar di atas, didapatkan jumlah user adalah 610, film ada 9724, minimum rating yang diberikan pengguna adalah 0.5 dan maksium adalah 5.
+
+### Membagi Dataset untuk Training dan Validasi
+
+Sebelum melakukan spliting dataset, data diacak terelbih dahulu supaya distribusinya menjadi random. Berikut ini adalah potongan kodenya.
+
+```python
+# Mengacak data
+new_rating_df = new_rating_df.sample(frac=1, random_state=42)
+new_rating_df
+```
+
+Setelah melakukan pengacakan dataset baru dilakukan spliting dataset. Dataset  dibagi menjadi data train dan data validasi dengan perbandingan 80:20. Sebelum melakukan spliting dataset, dilakukan scaling nilai variabel rating dalam rentang 0 sampai 1 untuk mempermudah proses training. Data train dan validasi ini digunakan untuk modeling dengan pendekatan Collaborative Filtering. Berikut ini adalah potongan kode untuk melakukan scaling dan spliting data.
+
+```python
+# Membuat variabel y untuk membuat rating dari hasil
+y = new_rating_df['rating'].apply(lambda z: (z - min_rating) / (max_rating - min_rating)).values
+
+# Membagi menjadi 80% data train dan 20% data validasi
+train_indices = int(0.8 * new_rating_df.shape[0])
+
+x_train, x_val, y_train, y_val = (
+    x[:train_indices],
+    x[train_indices:],
+    y[:train_indices],
+    y[train_indices:],
+)
+```
 
 ## Modeling
 Tahapan ini membahas mengenai model sisten rekomendasi yang Anda buat untuk menyelesaikan permasalahan. Sajikan top-N recommendation sebagai output.
