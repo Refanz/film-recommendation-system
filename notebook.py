@@ -33,10 +33,10 @@ print(tf.__version__)
 # Melakukan loading dataset menggunakan pandas
 
 # %%
-links_df = pd.read_csv("/kaggle/input/movies/links.csv")
-movies_df = pd.read_csv("/kaggle/input/movies/movies.csv")
-ratings_df = pd.read_csv("/kaggle/input/movies/ratings.csv")
-tags_df = pd.read_csv("/kaggle/input/movies/tags.csv")
+links_df = pd.read_csv("data/links.csv")
+movies_df = pd.read_csv("data/movies.csv")
+ratings_df = pd.read_csv("data/ratings.csv")
+tags_df = pd.read_csv("data/tags.csv")
 
 # %%
 links_df.head(5)
@@ -628,7 +628,7 @@ plt.show()
 
 # %%
 df_movies = fix_movies_df.iloc[:]
-movie = pd.read_csv('/kaggle/input/movies/ratings.csv')
+movie = pd.read_csv('data/ratings.csv')
 
 # Mengambil sampel user
 user_id = movie['userId'].sample(1).iloc[0]
