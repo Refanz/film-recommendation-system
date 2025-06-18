@@ -203,16 +203,64 @@ x_train, x_val, y_train, y_val = (
 ```
 
 ## Modeling
-Tahapan ini membahas mengenai model sisten rekomendasi yang Anda buat untuk menyelesaikan permasalahan. Sajikan top-N recommendation sebagai output.
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menyajikan dua solusi rekomendasi dengan algoritma yang berbeda.
-- Menjelaskan kelebihan dan kekurangan dari solusi/pendekatan yang dipilih.
+Tahapan ini membahas mengenai model sisten rekomendasi yang  dibuat untuk menyelesaikan permasalahan. Pada proyek ini dilakukan dua pendekatan yaitu Content-based Filtering dan Collaborative Filtering.
+
+### Content-based Filtering
+
+Metode ini merekomendasikan konten yang mirip dengan konten yang disukai pengguna di masa lalu. Similarity diukur dari atribut dari konten (dalam proyek ini adalah film) itu sendiri. Sebagai contoh, jika pengguna menyukai film Toy Story (genre: cartoon), sistem rekomendasi akan menyarankan film lain dengan genre yang sama seperti Monster Inc dan Finding Nemo.
+
+**Kelebihan:**
+- Tidak membutuhkan data pengguna lain
+- Dapat merekomendasikan konten baru selama konten tersebut memiliki atribut yang jelas tanpa perlu menunggu ada yang me-review atau menyukainya tersebih dahulu
+
+**Kekurangan:**
+- Kualitas rekomendasi sangat bergantung pada kelengkapan dan kualitas deskripsi dari konten
+- Cold Start, jika sistem belum memiliki data riwayat apapun dari pengguna baru, sistem tidak tahu harus merekomendasikan konten
+
+**Mendapatkan Rekomendasi Film**
+
+Berikut ini adalah contoh keluaran dari pembuatan sistem rekomendasi menggunakan pendekatan Content-based Filtering.
+
+<img src="assets/content-based-filtering.png" alt="content-based-filtering" width=100%>
+
+Melakukan percobaan untuk mencari rekomendasi film yang sama dengan film Toy Story (1995). Didapatkan hasil film yang mirip berdasarkan genrenya adalah Moana (2016), Tale of Despereaux, The (2008), Shrek the Third (2007), Wild, The (2006) dan Adventures of Rocky and Bullwinkle, The (2000)
+
+### Collaborative Filtering
+
+Metode ini merekomendasikan konten berdasarkan selera antar pengguna. Tidak memerlukan atribut untuk setiap kontennya seperti pada sistem berbasis konten. Metode ini dibagi menjadi dua kategori, yaitu: metode berbasis model machine learning dan metode berbasis memori.
+
+**Kelebihan:**
+- Metode ini dapat memberikan rekomendasi yang beragam karena tidak terbatas pada atribut konten
+- Metode ini tidak memerlukan atribut dari konten, cukup berdasarkan interaksi pengguna (rating, like, view)
+
+**Kekurangan:**
+- Mirip dengan Content-based, metode ini juga kesulitan memberikan rekomendasi untuk pengguna baru (Cold start)
+- Konten yang baru dirilis tidak akan direkomendasikan sampai ada cukup banyak pengguna yang memberikan rating
+
+**Hasil Rekomendasi**
+
+Berikut ini adalah contoh keluaran dari pembuatan sistem rekomendasi menggunakan pendekatan Content-based Filtering.
+
+<img src="assets/collaboratuve-filtering.png" alt="content-based-filtering" width=100%>
+
+Dari hasil rekomendasi di atas untuk user dengan id 425, diperoleh rekomendasi beberapa film yang sesuai dengan rating user yaitu dengan genre Action, Drama, Comedy, War, Thriller dan Romance.
 
 ## Evaluation
-Pada bagian ini Anda perlu menyebutkan metrik evaluasi yang digunakan. Kemudian, jelaskan hasil proyek berdasarkan metrik evaluasi tersebut.
 
-Ingatlah, metrik evaluasi yang digunakan harus sesuai dengan konteks data, problem statement, dan solusi yang diinginkan.
+Pada tahap ini digunakan dua metrik untuk evaluasi adalah loss fucnton dengan BinaryCrossentropy dan RootMeanSquaredError(RMSE).
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan formula metrik dan bagaimana metrik tersebut bekerja.
+### BinaryCrossentropy
+
+Ini adalah metrik yang mengukur seberapa baik sebuah model dalam melakukan klasifikasi biner (membedakan antara dua kelas, biasanay dilabeli 0 dan 1).  Cara kerja metrik ini yaitu mengubah rating menjadi label biner (0/1) berdasarkan ambang batas. Model memprediksi probabilitas "suka".
+
+### Root Mean Squared Error (RMSE)
+
+Ini adalah metrik yang mengukur rata-rata besarnya selisih antara nilai yang diprediksi oleh model dengan nilai aktual. Cara kerja RMSE dimulai saat model memprediksi rating numerik untuk sebuah film (misal: 4.5 bintang), yang kemudian dibandingkan dengan rating asli dari pengguna (misal: 4 bintang) untuk menghitung selisihnya (0.5). Selisih ini lalu dikuadratkan (0.25) untuk memberi bobot lebih pada error yang besar. Setelah proses ini diulang untuk seluruh data rating, hasilnya dirata-ratakan untuk mendapatkan Mean Squared Error. Terakhir, nilai tersebut diakar-kuadratkan (Root) untuk mengembalikan satuannya ke skala rating semula, menghasilkan nilai akhir RMSE yang merepresentasikan rata-rata kesalahan prediksi model.
+
+### Hasil Performa Model Collaborative
+
+<img src="assets/model-metric.png" width=100% alt="Evaluation Model">
+
+Dari hasil grafik di atas, setelah proses training model sekitar 50 epoch didapatkan nilai error akhir sebesar 0.1732 dan error pada data validasi sebesar 0.2007. Hasil dari metrik ini cukup bagus untuk sistem rekomendasi.
+
