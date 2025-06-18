@@ -1,8 +1,17 @@
-# Laporan Proyek Machine Learning - Nama Anda
+# Laporan Proyek Machine Learning - Refanda Surya Saputra
 
 ## Project Overview
 
-Pada bagian ini, Kamu perlu menuliskan latar belakang yang relevan dengan proyek yang diangkat.
+ Sebagai manusia, kita tidak bisa lepas dengan yang namanya kesibukan. Keadaan yang bisa datang kapan saja dan berasal dari mana saja, contohnya dari pekerjaan, tugas sekolah/kuliah dan hal-hal lainnya yang dapat membuat stres dan emosi. Oleh karena itu, perlu untuk istirahat sejenak agar pikiran bisa menjadi lebih tenang. Salah satu solusinya yaitu dengan menonton film favorit. Era teknologi sekarang ini, selain datang ke bioskop, banyak sekali alternatif yang dapat kita gunakan untuk menonton film, yaitu melalui smartphone kesayangan kita dengan menggunakan aplikasi seperti Youtube, Netflix atau WeTV. 
+
+Jika kita adalah pengguna setia aplikasi streaming film seperti Netflix, di menu utama aplikasi, kita  akan disuguhkan dengan rekomendasi film yang ceritanya sesuai dengan yang biasa kita tonton. Jika kita biasanya suka menonton film komedi, maka di tampilan atas akan terlihat rekomendasi film yang memiliki genre komedi. Hal ini terjadi karena aplikasi tersebut menerapkan sistem rekomendasi yang  menggunakan algoritma atau teknik tertentu untuk memberikan saran film yang relevan dengan pengguna. 
+
+Sistem rekomendasi akan membantu untuk menemukan film yang sesuai dengan preferensi pengguna, meningkatkan pengalaman menonton dan meningkatkan kepuasan pengguna. Manfaat yang diberikan dengan penerapan sistem rekomendasi ini dapat membuat perusahaan seperti Netflix untuk meningkatkan jumlah penggunanya. Selain itu, dengan adanya sistem rekomendasi ini kita juga dapat lebih cepat memilih film yang cocok dengan kita tanpa perlu melakukan pencarian atau scrolling film, yang mana ini memakan waktu istirahat kita. Jika tidak ada sistem rekomendasi ini, kemungkinan kita tidak akan jadi istirahat dan justru sibuk memilih film yang tepat.
+
+Untuk menerapkan sistem rekomendasi ini terdapat beberapa metode yang digunakan untuk membuat sistem rekomendasi yaitu Content-based filtering, Collaborative-filtering, Hybrid-filtering dan metode lainnya. 
+
+**Daftar Referensi**
+
 
 **Rubrik/Kriteria Tambahan (Opsional)**:
 - Jelaskan mengapa dan bagaimana masalah tersebut harus diselesaikan
