@@ -325,16 +325,44 @@ user yaitu dengan genre Action, Drama, Comedy, War, Thriller dan Romance.
 
 ## Evaluation
 
+Melakukan evaluasi pada kedua jenis pendekatan yaitu untuk Content-based Modeling menggunakan metrik kuantitatif
+precioson@k dan untuk Collaborative Modelling menggunakan metrik loss dan RMSE.
+
+### Content-Based Filtering
+
+#### Precision@K
+
+Precision@K adalah proporsi item relevan di antara rekomendasi K teratas. Hal ini berfokus pada kualitas rekomendasi.
+Berikut ini adalah formula untuk menghitung metrik ini.
+
+$$Precision@K = \frac{jumlah rekomendasi relevan dalam topK}{K} $$
+
+#### Hasil Evaluasi
+
+Menguji model CBF dengan mencari film yang genrenya mirip dengan film dengan judul "Toy Story (1995)". Film ini memiliki
+genre yaitu Adventure, Animation, Children, Comedy dan Fantasy.
+
+<img src="assets/cbf-eval-result.png" alt="cbf result" width="100%">
+
+Hasil evaluasi ini dengan mengatur k = 5, menunjukkan performa yang sempurna dengan skor precision@k sebesar 1.0 (atau 100%) untuk film
+target "Toy Story (1995)". Skor maksimal ini tercapai karena kelima film yang direkomendasikan oleh sistem (dari "Moana"
+hingga "The Adventures of Rocky and Bullwinkle") memiliki kombinasi genre yang identik dengan film target. Artinya,
+berdasarkan logika evaluasi yang memeriksa kesamaan genre, setiap rekomendasi dianggap sebagai "cocok" atau relevan,
+membuktikan bahwa untuk kasus ini, sistem sangat efektif dalam menemukan film-film dengan klasifikasi konten yang sama
+persis.
+
+### Collaborative Filtering
+
 Pada tahap ini digunakan dua metrik untuk evaluasi adalah loss fucnton dengan BinaryCrossentropy dan
 RootMeanSquaredError(RMSE).
 
-### BinaryCrossentropy
+#### BinaryCrossentropy
 
 Ini adalah metrik yang mengukur seberapa baik sebuah model dalam melakukan klasifikasi biner (membedakan antara dua
 kelas, biasanay dilabeli 0 dan 1). Cara kerja metrik ini yaitu mengubah rating menjadi label biner (0/1) berdasarkan
 ambang batas. Model memprediksi probabilitas "suka".
 
-### Root Mean Squared Error (RMSE)
+#### Root Mean Squared Error (RMSE)
 
 Ini adalah metrik yang mengukur rata-rata besarnya selisih antara nilai yang diprediksi oleh model dengan nilai aktual.
 Cara kerja RMSE dimulai saat model memprediksi rating numerik untuk sebuah film (misal: 4.5 bintang), yang kemudian
@@ -344,7 +372,7 @@ rating, hasilnya dirata-ratakan untuk mendapatkan Mean Squared Error. Terakhir, 
 untuk mengembalikan satuannya ke skala rating semula, menghasilkan nilai akhir RMSE yang merepresentasikan rata-rata
 kesalahan prediksi model.
 
-### Hasil Performa Model Collaborative
+#### Hasil Performa Model Collaborative
 
 <img src="assets/model-metric.png" width=100% alt="Evaluation Model">
 
